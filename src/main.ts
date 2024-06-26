@@ -7,7 +7,7 @@ import { FoodListComponent } from './food/food-components/food-list.component';
 import { FoodFormComponent } from './food/food-components/food-form.components';
 import { FoodFakeService } from './food/food-components/food-fake.service';
 
-import { EffectsModule } from '@ngrx/effects';
+import { EffectsModule, provideEffects } from '@ngrx/effects';
 import { FoodEffects } from './food/food-components/food-effects';
 
 @Component({
@@ -29,9 +29,10 @@ export class App {
 
 bootstrapApplication(App, {
   providers: [
-    // provideStore(),
+    provideStore(),
     importProvidersFrom(StoreModule.forRoot({ foods: food_reducer })),
     importProvidersFrom(EffectsModule.forRoot(FoodEffects)),
     FoodFakeService,
-  ],
+    provideEffects()
+],
 });
